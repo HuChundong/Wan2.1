@@ -93,7 +93,7 @@ def flash_attention(
     # apply attention
     if (version is None or version == 3) and FLASH_ATTN_3_AVAILABLE:
         # Note: dropout_p, window_size are not supported in FA3 now.
-        x = flash_attn_interface.flash_attn_varlen_func(
+        x = flash_attn_interface.flash_attn_unpadded_func(
             q=q,
             k=k,
             v=v,
@@ -110,7 +110,7 @@ def flash_attention(
             deterministic=deterministic)[0].unflatten(0, (b, lq))
     else:
         assert FLASH_ATTN_2_AVAILABLE
-        x = flash_attn.flash_attn_varlen_func(
+        x = flash_attn.flash_attn_unpadded_func(
             q=q,
             k=k,
             v=v,

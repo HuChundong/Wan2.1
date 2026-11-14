@@ -14,10 +14,10 @@ import torch
 from PIL import Image
 
 try:
-    from flash_attn import flash_attn_varlen_func
+    from flash_attn import flash_attn_unpadded_func
     FLASH_VER = 2
 except ModuleNotFoundError:
-    flash_attn_varlen_func = None  # in compatible with CPU machines
+    flash_attn_unpadded_func = None  # in compatible with CPU machines
     FLASH_VER = None
 
 LM_CH_SYS_PROMPT = \
